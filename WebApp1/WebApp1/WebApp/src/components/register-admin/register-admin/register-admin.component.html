@@ -1,0 +1,49 @@
+<div class="loginPage">
+  <div class="registerForm">
+    <div style="font-size: 32px;">
+      Register admin
+    </div>
+    <form  style="margin-top: 16px;"  class="regForm" [formGroup]="registerForm">
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" matInput placeholder="Email" class="form-control" type="text" formControlName="email">
+        <mat-error >Please enter valid email.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" matInput placeholder="First Name" class="form-control"  type="text" formControlName="firstName">
+        <mat-error >Firstname is required.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" matInput placeholder="Last Name" class="form-control"  type="text" formControlName="lastName">
+        <mat-error >Firstname is required.</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" matInput placeholder="Phone number" class="form-control"  type="text" formControlName="phoneNumber">
+      </mat-form-field>
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" matInput placeholder="Password" class="form-control"  type="password" formControlName="password">
+        <mat-error >Password is required.</mat-error>
+        <mat-hint>Passwords must contain:
+          a minimum of 1 lower case letter [a-z] and
+          a minimum of 1 upper case letter [A-Z] and
+          a minimum of 1 numeric character [0-9] and
+          a minimum of 1 special character: -._@+</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher"  matInput placeholder="Repeat password"  class="form-control"  type="password" formControlName="repeatPassword">
+        <mat-error >Repeat password field is required.</mat-error>
+      </mat-form-field>
+      <div>
+        <mat-form-field class="regField" appearance="fill">
+          <mat-select [errorStateMatcher]="matcher" formControlName="countryId" placeholder="Select country">
+            <mat-option *ngFor="let c of countries" [value]="c.id">
+              {{c.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="registerForm.controls['countryId'].hasError('required')" >Please select country.</mat-error>
+         </mat-form-field>
+      </div>
+      <button (click)="registerUser()" style="margin-top: 16px; width: 100%;">Register</button>
+    </form>
+  </div>
+</div>
+

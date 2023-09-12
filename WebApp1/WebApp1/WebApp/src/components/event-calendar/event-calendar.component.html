@@ -1,0 +1,66 @@
+<div class="row text-center" style="display: flex; align-items: center;">
+  <div style="margin-left: auto; margin-right: auto;">
+    <span style="font-size: 16px; font-weight: 600;">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</span>
+  </div>
+  <div style="display: flex; justify-content: space-between;">
+    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()">
+      <span class="material-symbols-outlined" style="color: lightgray;">arrow_back_ios</span>
+    </div>
+    <div class="btn btn-outline-secondary" (click)="initCurrentDateEvents()" mwlCalendarToday [(viewDate)]="viewDate">
+      Today
+    </div>
+    <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+      (viewDateChange)="closeOpenMonthViewDay()">
+      <span class="material-symbols-outlined" style="color: lightgray;">arrow_forward_ios</span>
+    </div>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="view">
+  <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
+    [refresh]="refresh"  [cellTemplate]="customCellTemplate"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-month-view>
+  <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-week-view>
+  <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
+    (eventClicked)="handleEvent('Clicked', $event.event)">
+  </mwl-calendar-day-view>
+</div>
+
+<ng-template #customCellTemplate let-day="day">
+  <div class="eventOnCalendar" [ngClass]="{'eventOnCalendar-opened':day.date == selectedDate}">
+    <div>
+      <header class="monthCellHeader">
+        <span>
+          {{getCellDate(day.date)}}
+        </span>
+        <span (click)="openCellView(day.date)" [ngClass]="{'expand-open':day.date == selectedDate}"  class="expand material-symbols-outlined">
+          expand_more
+        </span>
+      </header>
+      <ng-container *ngIf="day.date == selectedDate && day.events.length == 0">
+        <div class="noEvents">No events.</div>
+      </ng-container>
+      <div>
+        <div  *ngFor="let e of day.events | preview : day.date == selectedDate">
+          <div  [ngClass]="{'events-not-expanded':day.date != selectedDate}"  class="customEvent" (click)="eventClick($event,e,day.date)">
+            <div>
+              {{e.title}}
+            </div>
+            <div class="eventTime">{{e.meta.eventDateTime | date : "hh:mm"}}</div>
+          </div>
+        </div>
+        <div class="moreEvents" *ngIf="day.events.length - 1 > 0 && day.date != selectedDate">{{day.events.length - 1}} more.</div>
+        <div (click)="viewAllEvents(day.events)" class="viewAll" *ngIf="day.date == selectedDate">
+          <span class="material-symbols-outlined">
+            more_vert
+            </span>
+            <span>Open in panel</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

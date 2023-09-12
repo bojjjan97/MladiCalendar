@@ -1,0 +1,112 @@
+.monthCellHeader{
+    width:100%;
+    font-weight: 600;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+.customEvent{
+    margin: 5px;
+    padding: 8px;
+    background-color: white;
+    border-top: 3px solid lavender;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.noEvents{
+  margin: 5px;
+  padding: 8px;
+  border-top:3px solid transparent;
+}
+.events-not-expanded{
+  max-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.eventTime{
+  font-size: 10px;
+  width: 24px;
+  height: 15px;
+}
+.customEvent:hover{
+  cursor: pointer;
+  border-color: #2f2963;
+}
+.expand{
+  background-color: lavender;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  transition: 400ms;
+  cursor: pointer;
+  user-select: none;
+}
+.expand:hover{
+  background-color:#2f2963;
+}
+.expand-open{
+  background-color: #2f2963;
+  transform: rotate(180deg);
+  transition: 400ms;
+  cursor: pointer;
+
+}
+
+.viewAll{
+  padding: 5px;
+  background-color: lavender;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  cursor: pointer;
+  border-bottom-left-radius: 10px;
+}
+.viewAll:hover{
+  background-color: #2f2963;
+  color:white;
+}
+.weekMonthBtn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid lavender;
+  padding: 4px;
+  height: 32px;
+
+}
+:host{
+    width: 100%;
+
+}
+:host ::ng-deep .cal-month-view .cal-day-cell{
+  position: relative;
+}
+
+.eventOnCalendar{
+  max-height: 100px;
+  min-height: 100px;
+  min-width: 100%;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: absolute;
+  width: 100%;
+  background-color: #8080800a;
+}
+
+.moreEvents{
+  font-size: 12px;
+  color: gray;
+}
+
+.eventOnCalendar-opened{
+  height: fit-content;
+  max-height: fit-content;
+  position: absolute;
+  z-index: 1000;
+  background-color: #ededed;
+  border: 1px solid lavender;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}

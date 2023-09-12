@@ -1,0 +1,52 @@
+.header-column {
+  width: 20%;
+  font-size: 14px;
+  color: gray;
+}
+
+.btn-add-trainer {
+  padding: 2px 8px 2px 8px;
+  width: fit-content;
+  display: flex; 
+  color: black; 
+  align-items: center; 
+  border-radius: 4px; 
+  border: 1px solid lavender; 
+  cursor: pointer;
+}
+
+.menuBtn {
+  background: #E0E0E0; 
+  height: 32px; 
+  border: 1px solid lavender; 
+  border-radius: 4px;
+
+  &.active {
+    background: #A0A0A0;
+  }
+}
+
+.eventLine {
+  display: flex; 
+  align-items: center; 
+  margin-top: 4px;
+
+  &:hover {
+    background: #E0E0E0;
+  }
+}
+
+.paginator{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.eventColumn {
+  width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 20%;
+}

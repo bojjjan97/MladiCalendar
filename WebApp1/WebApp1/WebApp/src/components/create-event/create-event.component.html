@@ -1,0 +1,54 @@
+<div class="cont">
+    <form class="regForm" [formGroup]="createEventForm" >
+      <mat-form-field class="regField">
+        <input [errorStateMatcher]="matcher" color="accent" placeholder="Name" matInput type="text" formControlName="name">
+        <mat-error >Please enter event name.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="regField">
+        <input [errorStateMatcher]="matcher" color="accent" placeholder="Description" matInput type="textarea" formControlName="description">
+        <mat-error >Please enter description.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="regField">
+        <input [errorStateMatcher]="matcher" color="accent" placeholder="Location" matInput type="text" formControlName="location">
+        <mat-error >Please enter location.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="regField">
+        <input [errorStateMatcher]="matcher" color="accent" placeholder="Online Meeting Url" matInput type="text" formControlName="onlineMeetingUrl">
+        <mat-error >Please enter online meeting url.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="regField">
+        <input [errorStateMatcher]="matcher" color="accent" placeholder="Number Of Participants" matInput type="number" formControlName="numberOfParticipants">
+        <mat-error >Please enter number of participants.</mat-error>
+      </mat-form-field>
+      <div >
+        <mat-form-field class="regField" appearance="fill">
+          <mat-select [errorStateMatcher]="matcher" multiple formControlName="trainerIds"  placeholder="Select trainers">
+            <mat-option (onSelectionChange)="addTrainer($event.source.value)" *ngFor="let t of trainers" [value]="t.id">
+              {{t.fullName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="createEventForm.controls['eventForUserType'].hasError('required')" >Please select event trainers.</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field  class="regField" appearance="fill">
+          <mat-select [errorStateMatcher]="matcher" formControlName="eventForUserType" placeholder="Event for">
+            <mat-option *ngFor="let eut of eventUserType" [value]="eut.id">
+              {{eut.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="createEventForm.controls['eventForUserType'].hasError('required')" >Please choose event type.</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- <ngx-mat-timepicker-field required class="regField" matInput #timePicker formControlName="eventStartTime" [format]="24">
+      </ngx-mat-timepicker-field> -->
+      <mat-form-field>
+        <input [errorStateMatcher]="matcher" formControlName="eventStartTime" readonly [ngxMatTimepicker]="picker"  [format]="24"  matInput>  
+        <ngx-mat-timepicker  #picker></ngx-mat-timepicker> 
+        <mat-error>Please choose time.</mat-error>
+      </mat-form-field>
+     
+      <button type="submit" (click)="createEvent()" class="add-events">{{submitButtonText}}</button>
+      </form>
+  </div>
+

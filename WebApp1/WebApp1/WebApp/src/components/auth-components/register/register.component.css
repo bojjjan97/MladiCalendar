@@ -1,0 +1,38 @@
+.loginPage {
+    display: flex;
+    width: 320px;
+    justify-content: center;
+    position: fixed;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+@media screen and (max-width:320px){
+  .loginPage{
+    width: 95%;
+  }
+}
+.regForm{
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.form-control {
+    border: 1px solid lavender;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.submitBtn {
+    background-color: #008CBA;
+    color: white;
+    width: 100%;
+    border: 1px solid lavender;
+    border-radius: 4px;
+}

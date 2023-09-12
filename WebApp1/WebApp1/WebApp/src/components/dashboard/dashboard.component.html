@@ -1,0 +1,101 @@
+<div style="display: flex; align-items: center;">
+  <button class="menuBtn" [ngClass] = "{'active': upcomingEvents}" (click)="showUpcomingEvents()" >
+      Upcoming events    
+  </button>
+  <button class="menuBtn" [ngClass] = "{'active': !upcomingEvents}" style="margin-left: 8px;" (click)="showPastEvents()">
+      Past events
+  </button>
+</div>
+<div *ngIf="upcomingEvents" style="padding-left: 16px; padding-right: 16px;" >
+  <div style="width: 100%; display: flex; ">
+    <div class="header-column">
+      Name:
+    </div>
+    <div class="header-column">
+      Start date:
+    </div>
+    <div class="header-column">
+      Location
+    </div>
+    <div class="header-column">
+      Trainers
+    </div>
+    <div class="header-column">
+      Registered participants
+    </div>
+  </div>
+  <div *ngFor="let e of events!" style="display: flex; align-items: center;" >
+    <div class="eventColumn" title="{{e.name}}">
+      {{e.name}}
+    </div>
+    <div style="width: 20%;">
+      {{convertDateTime(e.eventDateTime)}}
+    </div>
+    <div class="eventColumn" title="{{e.location}}">
+      {{e.location}}
+    </div>
+    <div class="eventColumn" title="{{e.trainers}}">
+      {{getTrainerNames(e.trainers)}}
+    </div>
+    <div style="width: 20%;">
+      {{e.numberOfRegisteredParticipants}} / {{e.numberOfParticipants}}
+    </div>
+  </div>
+  <div class="paginator">
+    <span (click)="previousPage()" class="material-symbols-outlined" style="color: lightgray; user-select: none; cursor: pointer;">arrow_back_ios</span>
+    <span>{{currentPage}}/{{numberOfPages}}</span>
+    <span (click)="nextPage()" class="material-symbols-outlined" style="color: lightgray; user-select: none; cursor: pointer;">arrow_forward_ios</span>
+  </div>
+</div>
+<div *ngIf="!upcomingEvents" style="padding-left: 16px; padding-right: 16px;" >
+  <div>
+    Total number of events: {{total}}
+  </div>
+  <div>
+    Total number of certificates sent: {{totaLCertificatesSent}}
+  </div>
+  <div style="width: 100%; display: flex; margin-top: 8px;">
+    <div class="header-column">
+      Name:
+    </div>
+    <div class="header-column">
+      Start date:
+    </div>
+    <div class="header-column">
+      Certificates sent to 
+    </div>
+    <div class="header-column">
+      Trainers
+    </div>
+    <div class="header-column">
+    </div>
+  </div>
+  <div *ngFor="let e of events!" class="eventLine" >
+    <div class="eventColumn" title="{{e.name}}">
+      {{e.name}}
+    </div>
+    <div style="width: 20%;">
+      {{convertDateTime(e.eventDateTime)}}
+    </div>
+    <div class="eventColumn" title="{{e.location}}">
+      {{getUsersCount(e.usersOnEvent)}}
+    </div>
+    <div class="eventColumn" title="{{e.trainers}}">
+      {{getTrainerNames(e.trainers)}}
+    </div>
+    <div style="width: 20%;">
+      <button class="btn-add-trainer" (click)="sendEmails(e)">
+        <span class="material-symbols-outlined" style="color: lightgray;">send</span>
+        <span style="margin-left: 8px;">Send emails</span>
+      </button>
+    </div>
+  </div>
+  <div class="paginator">
+    <span (click)="previousPage()" class="material-symbols-outlined" style="color: lightgray; user-select: none; cursor: pointer;">arrow_back_ios</span>
+    <span>{{currentPage}}/{{numberOfPages}}</span>
+    <span (click)="nextPage()" class="material-symbols-outlined" style="color: lightgray; user-select: none; cursor: pointer;">arrow_forward_ios</span>
+  </div>
+  
+ 
+</div>
+

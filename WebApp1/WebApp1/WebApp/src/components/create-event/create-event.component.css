@@ -1,0 +1,31 @@
+.event-desciption{
+  resize: none;
+  width: 100%;
+}
+
+.regField{
+  width: 95%;
+}
+
+.cont{
+  height: 100%;
+  margin-top: 8px;
+}
+
+::ng-deep .ngx-mat-timepicker-control{
+    width: 50px !important;
+  }
+
+  .add-events {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    background-color: #2f2963;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid gray;
+    cursor:pointer;
+}

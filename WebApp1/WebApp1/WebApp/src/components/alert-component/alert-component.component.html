@@ -1,0 +1,17 @@
+<div *ngIf="data" class="alert" [ngStyle]="{'background-color': data.AlertType == 0 ? 'lavender' : '#FF7276' }">
+  <span *ngIf="data.AlertType != 0; else succ" class="material-symbols-outlined">
+    error
+    </span>
+    <ng-template #succ>
+      <span class="material-symbols-outlined">
+        done
+        </span>
+    </ng-template>
+
+  <p>
+    {{data.Message}}
+  </p>
+</div>
+
+
+

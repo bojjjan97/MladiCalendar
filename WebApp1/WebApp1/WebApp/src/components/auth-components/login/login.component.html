@@ -1,0 +1,22 @@
+<div class="loginPage">
+  <!-- <img src="../../../assets/storage/MLADI_WB_WhiteText.png" width="200" height="200">  -->
+  <div style="width: 250px; margin-left: 16px; ">
+    <div style="font-size: 32px;">
+      Log in 
+    </div>
+    <form style="width: 100%; margin-top: 16px;" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div style="width: 100%;">
+        <label class="form-label">Email</label><br>
+        <input class="form-control" type="text" formControlName="email">
+      </div>
+      <div style="width: 100%;">
+        <label class="form-label">Password</label><br>
+        <input class="form-control" type="password" formControlName="password">
+      </div>
+      <button class="submitBtn" type="submit">Login</button>
+      <br> 
+      <span style="display: flex; justify-content: center;">Or</span> 
+      <button style="width: 100%; " type="button" (click)="register()">Register</button>
+    </form>
+  </div>
+</div>  

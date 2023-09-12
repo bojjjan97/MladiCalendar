@@ -1,0 +1,58 @@
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target)" placeholder="Filter">
+  </mat-form-field>
+  <button class="btn-add-trainer" (click)="createTrainer()">
+    <span class="material-symbols-outlined" style="color: lightgray;">add</span>
+    <span>Add trainer</span>
+  </button>
+</div>
+<div class="example-container mat-elevation-z8">
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <!-- <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.id}} </mat-cell>
+    </ng-container> -->
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="fullName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> FullName </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.fullName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </mat-header-cell>
+      <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+      <mat-cell *matCellDef="let row" > <button (click)="deleteTrainer(row.id)">Delete</button> </mat-cell>
+    </ng-container>
+
+     <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>  </mat-header-cell>
+      <mat-cell *matCellDef="let row" > <button (click)="editTrainer(row)">Edit</button> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Country</mat-header-cell>
+      <mat-cell *matCellDef="let row" >{{row.country}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator [pageSizeOptions]="[10]"></mat-paginator>
+</div>

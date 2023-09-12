@@ -1,0 +1,13 @@
+.alert{
+  height: fit-content;
+  width: 70%;
+  position: absolute;
+  top: 10px;
+  left:10%;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin: 5px;
+}

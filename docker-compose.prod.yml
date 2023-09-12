@@ -1,0 +1,64 @@
+version: '3.4'
+
+networks:
+  appnetwork:
+    driver: "bridge"
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}webapi
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: WebAPI/Dockerfile
+    ports:
+      - "4015:443"
+      - "4000:80"
+    environment:
+      - ASPNETCORE_URLS=http://localhost
+    networks:
+      - appnetwork
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp:v1
+    build:
+      context: test/my-app
+      dockerfile: Dockerfile
+    ports:
+      - "4014:80"
+    restart: always
+  db:
+    container_name: db
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+       - postgres-data:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "*9797*SiB@Proj!"
+      POSTGRES_DB: "postgres"
+    expose:
+      - 5432
+    networks:
+      - appnetwork
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin4_container
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - appnetwork
+
+volumes:
+  postgres-data:
+  pgadmin-data:

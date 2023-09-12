@@ -1,0 +1,82 @@
+name: dockercompose10985736384147961324
+services:
+  db:
+    container_name: db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: '*9797*SiB@Proj!'
+      POSTGRES_USER: admin
+    expose:
+    - "5432"
+    image: postgres:latest
+    networks:
+      appnetwork: null
+    ports:
+    - mode: ingress
+      target: 5432
+      published: "5432"
+      protocol: tcp
+    restart: always
+    volumes:
+    - type: volume
+      source: postgres-data
+      target: /var/lib/postgresql/data
+      volume: {}
+  webapi:
+    build:
+      context: C:\Users\marko\OneDrive\Desktop\WebAPI
+      dockerfile: WebAPI/Dockerfile
+    depends_on:
+      db:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: webapi
+    networks:
+      appnetwork: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "4015"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\marko\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\marko\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  webapp:
+    build:
+      context: C:\Users\marko\OneDrive\Desktop\WebAPI\WebAPP\WebApp
+      dockerfile: WebAPP/WebApp/Dockerfile
+    image: webapp:v1
+    networks:
+      default: null
+    ports:
+    - mode: ingress
+      target: 80
+      published: "4014"
+      protocol: tcp
+networks:
+  appnetwork:
+    name: dockercompose10985736384147961324_appnetwork
+    driver: bridge
+  default:
+    name: dockercompose10985736384147961324_default
+volumes:
+  postgres-data:
+    name: dockercompose10985736384147961324_postgres-data

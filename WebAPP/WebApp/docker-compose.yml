@@ -1,0 +1,9 @@
+version: '3.5'
+services:
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp:v1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4014:80"

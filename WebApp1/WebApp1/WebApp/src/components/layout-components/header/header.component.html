@@ -1,0 +1,23 @@
+<header class="header">
+  <div>
+    <img src="../../../assets/storage/MLADI_WB_WhiteText.png" width="110" height="70">
+  </div>
+  <div>
+    <div *ngIf="!userLoggedIn && !adminLoggedIn">
+      <button class="header-item" [routerLink]="''">Login</button>
+      <button class="header-item" [routerLink]="'register'">Register</button>
+    </div>
+    <div *ngIf="userLoggedIn || adminLoggedIn">
+      <ng-container *ngIf="adminLoggedIn" >
+        <button class="header-item" (click)="trainer()">Trainer</button>
+        <button class="header-item" (click)="dashboard()">Dashboard</button>
+        <button class="header-item" (click)="registerAdmin()">Register admin</button>
+      </ng-container>
+      <button class="header-item" (click)="updateUser()">Update user</button>
+      <button class="header-item" (click)="calendar()">Calendar</button>
+      <button class="header-item" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</header>
+<hr>
+

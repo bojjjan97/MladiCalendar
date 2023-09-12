@@ -1,0 +1,29 @@
+<form class="trainerForm" [formGroup]="trainerForm" (ngSubmit)="update()">
+  <mat-form-field class="regField">
+    <input color="accent" placeholder="First Name" matInput type="text" formControlName="firstName">
+  </mat-form-field>
+  <mat-form-field class="regField">
+    <input color="accent" placeholder="Last Name" matInput type="text" formControlName="lastName">
+  </mat-form-field>
+  <mat-form-field class="regField">
+    <input color="accent" placeholder="Email" matInput type="text" formControlName="email">
+  </mat-form-field>
+  <mat-form-field class="regField">
+    <input color="accent" placeholder="Phone number" matInput type="text" formControlName="phoneNumber">
+  </mat-form-field>
+  <div >
+    <mat-form-field class="regField" appearance="fill">
+      <mat-select [compareWith]="compareFunction" formControlName="country" placeholder="Select country">
+        <mat-option *ngFor="let c of countries" [value]="c">
+          {{c.name}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+  </div>
+  <div *ngIf="updateFuntion">
+    <button class="btn-add-trainer"><span>Update trainer</span></button>
+  </div>
+  <div *ngIf="!updateFuntion">
+    <button class="btn-add-trainer"><span>Create trainer</span></button>
+  </div>
+</form>

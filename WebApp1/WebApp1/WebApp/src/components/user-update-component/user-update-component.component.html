@@ -1,0 +1,41 @@
+<div class="loginPage">
+    <div class="registerForm">
+      <div style="font-size: 32px;">
+        Change user information
+      </div>
+      <form  style="margin-top: 16px;"  class="regForm" [formGroup]="registerForm">
+        <mat-form-field>
+          <input [errorStateMatcher]="matcher" matInput placeholder="First Name" class="form-control"  type="text" formControlName="firstName">
+          <mat-error >Firstname is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [errorStateMatcher]="matcher" matInput placeholder="Last Name" class="form-control"  type="text" formControlName="lastName">
+          <mat-error >Firstname is required.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input [errorStateMatcher]="matcher" matInput placeholder="Phone number" class="form-control"  type="text" formControlName="phoneNumber">
+        </mat-form-field>
+        <ng-container *ngIf="!isAdmin">
+            <mat-form-field class="regField" appearance="fill">
+                <mat-select [errorStateMatcher]="matcher"   formControlName="userType" placeholder="Student or highschool">
+                  <mat-option *ngFor="let eut of eventUserType" [value]="eut">
+                    {{eut.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error >Please select value.</mat-error>
+              </mat-form-field>
+        </ng-container>
+        <div>
+          <mat-form-field class="regField" appearance="fill">
+            <mat-select formControlName="countryId" placeholder="Select country">
+              <mat-option *ngFor="let c of countries" [value]="c">
+                {{c.name}}
+              </mat-option>
+            </mat-select>
+           </mat-form-field>
+        </div>
+        <button (click)="registerUser()" style="margin-top: 16px; width: 100%;">Change</button>
+      </form>
+    </div>
+  </div>
+  

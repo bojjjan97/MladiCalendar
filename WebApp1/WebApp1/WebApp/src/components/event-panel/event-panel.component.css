@@ -1,0 +1,145 @@
+.add-events {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #2f2963;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid gray;
+    cursor:pointer;
+}
+.registerButton > button{
+  margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    background-color: #2f2963;
+    color: white;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid gray;
+    cursor:pointer;
+    margin-bottom: 10px;
+}
+.closeButton {
+    margin-left: auto;
+    background: white;
+    border: none;
+    cursor: pointer;
+}
+
+.panel-header {
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.eventName {
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+.event-description {
+    margin-top: 4px;
+    resize: none;
+    width: 100%;
+    white-space: normal;
+    overflow-y: auto;
+}
+
+.groupElement {
+    margin-top : 4px;
+    display: flex;
+    align-items: center;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid lightgray;
+    width: 100%;
+    background: white;
+    cursor: pointer;
+}
+.eventFull{
+  background-color: lavender;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+  height: 30px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 10px;
+  padding: 5px;
+}
+.goBackButton {
+    background: white;
+    display: flex;
+    align-items: center;
+    border: 0;
+    cursor: pointer;
+}
+
+.selectedDate{
+  height: 30px;
+  font-size: 18;
+  font-weight: bold;
+  color: rgb(90, 90, 90);
+}
+
+.mainPanel {
+    flex-shrink: 1;
+    width: 500px;
+    margin-left: auto;
+    height: 96%;
+    overflow-y: auto;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding: 8px;
+    overflow-x: auto;
+}
+
+.rowElement {
+    display: flex; 
+    align-items: center; 
+    font-size: 14px; 
+    line-height: 20px;
+    margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btnDelete {
+    margin-left: auto;
+    background: white;
+    border: unset;
+}
+
+.btnBack {
+    display: flex;
+    align-items: center;
+    border: unset;
+    background: white;
+}
+
+.spanGoBack {
+    font-size: 14px; 
+    line-height: 20px; 
+    margin-left: 8px; 
+    color: #A0A0A0;
+}
+
+@media screen and (max-width:768px){
+    .mainPanel{
+        position: fixed;
+        background-color: white;
+        top:48px;
+        left: 0px;
+        z-index: 10;
+        width: 96vw;
+    }
+
+}

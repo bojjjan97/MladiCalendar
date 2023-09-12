@@ -1,0 +1,157 @@
+<div *ngIf="rightHandPanel" class="mainPanel" >
+    <!-- All events -->
+    <div style="display: flex;" >
+      <div class="selectedDate">
+        {{selectedDate}}
+      </div>
+      <button class="closeButton" (click)="closePanel()">
+        <span class="material-symbols-outlined" style="color: gray;">close</span>
+      </button>
+    </div>
+    <div *ngIf="eventsPanelVisible">
+        <div class="panel-header">
+            Events
+        </div>
+        <button *ngIf="adminLoggedIn" class="add-events" (click)="openCreateEvent()">
+            <span class="material-symbols-outlined" style="color: white;">add</span>
+            Create Event
+        </button>
+        <div *ngFor="let e of events">
+            <div style="padding: 8px; display: flex; cursor:pointer" (click)="openEvent(e.eventId)">
+                <div style="width: 32px; height: 32px; background-color: lightblue; border-radius: 4px; display: flex; align-items: center; text-align: center; line-height: 12px; font-size: 12px;" >
+                    {{selectedDate}}
+                </div>
+                <div style="flex-grow: 1; margin-left: 4px;">
+                    <div style="display: flex; align-items: center;">
+                      <span class="eventName">
+                        {{e.name}}
+                      </span>
+                      <button *ngIf="adminLoggedIn" class="btnDelete"  (click)="deleteEvent($event,e.eventId)">
+                        <span class="material-symbols-outlined" style="color: red;">delete</span>
+                      </button>
+                    </div>
+                    <div style="margin-left: 4px; display: flex; align-items: center;">
+                      <span class="material-symbols-outlined" style="color: lightgray; margin-left: 4px;">location_on</span>
+                      <span style="margin-left: 8px;">
+                        {{e.location}}
+                      </span>
+                    </div>
+                    <div style="display: flex; align-items: center; margin-left: 8px; margin-right: 8px;">
+                      <div style="display: flex; align-items: center;">
+                        <span class="material-symbols-outlined" style="color: lightgray;">link</span>
+                        <span style="margin-left: 8px;">{{e.onlineMeetingUrl}}</span>
+                      </div>
+                      <div style="margin-left: auto; display: flex; align-items: center;">
+                        <span *ngIf="e.numberOfRegisteredParticipants <= e.numberOfParticipants" class="material-symbols-outlined" style="color: lightgray; font-size: 18px;" title="Still open places of users">person_add</span>
+                        <span *ngIf="e.numberOfRegisteredParticipants >= e.numberOfParticipants" class="material-symbols-outlined" style="color: lightgray; font-size: 18px;" title="Event full!">person_add_disabled</span>
+                        {{e.numberOfParticipants - e.numberOfRegisteredParticipants }}
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Selected event -->
+    <div *ngIf="selectedEventVisible && !update">
+        <button class="btnBack" (click)="goBack()">
+          <span class="material-symbols-outlined" style="color: lightgray;">arrow_back</span>
+          <span class="spanGoBack">
+            Go Back
+          </span>
+        </button>
+        <button *ngIf="adminLoggedIn" class="add-events" style="margin-top: 8px;" (click)="openUpdateEvent()">
+            <span class="material-symbols-outlined" style="color: white;">add</span>
+            Update Event
+        </button>
+        <div style="margin-top: 24px; padding: 0 8px 0 8px;">
+            <div class="registerButton" *ngIf="userLoggedIn">
+                <button *ngIf="!selectedEvent?.currentUserAlreadyOnEvent && selectedEvent.freePlaces" (click)="register(selectedEvent?.eventId)">Register</button>
+                <button *ngIf="selectedEvent?.currentUserAlreadyOnEvent" (click)="unregister(selectedEvent?.eventId)">Unregister</button>
+            </div>
+            <div class="eventFull" *ngIf="!selectedEvent.freePlaces">
+              <span class="material-symbols-outlined">
+                warning
+                </span>
+              <span>Event is full. No more registrations are allowed.</span>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <div style="width: 32px; height: 32px; background-color: lightblue; border-radius: 4px; display: flex; align-items: center;" >
+                    <span class="material-symbols-outlined" style="margin-left: 4px;">calendar_today</span>
+                </div>
+                <div style="margin-left: 8px;">
+                    {{selectedEvent?.name}}
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; margin-top: 8px;">
+                <div style="width: 50%;">
+                    Start date
+                </div>
+                <div style="margin-left: auto;">
+                  {{get_date(selectedEvent?.eventDateTime)}}
+                </div>
+            </div>
+            <div style="margin-top: 8px;">
+                <div>
+                    <label for="event-description">Description:</label>
+                </div>
+                <textarea id="event-description" name="event-description" class="event-description" readonly rows="4" cols="50">
+                    {{selectedEvent?.description}}
+                </textarea>
+            </div>
+            <div class="rowElement">
+              <span class="material-symbols-outlined" style="color: lightgray; margin-left: 4px;">location_on</span>
+              <span style="margin-left: 8px;">
+                {{selectedEvent?.location}}
+              </span>
+            </div>
+            <div class="rowElement">
+                <span class="material-symbols-outlined" style="color: lightgray; margin-left: 4px;">link</span>
+                <span style="margin-left: 8px;">
+                  {{selectedEvent?.onlineMeetingUrl}}
+                </span>
+            </div>
+            <button class="groupElement" (click)="showTrainers()">
+                <span class="material-symbols-outlined" style="color: lightgray;">supervisor_account</span>
+                <span style="margin-left: 8px;">
+                    Assigned trainers
+                </span>
+            </button>
+            <div *ngIf="!trainersHidden" style="padding-left: 16px;">
+                <div *ngFor="let trainer of selectedEvent?.trainers">
+                    <span [ngClass]="getClass(trainer)"></span>
+                    <span>
+                      {{trainer.firstName}} {{trainer.lastName}}
+                    </span>
+                </div>
+            </div>
+            <button class="groupElement" *ngIf="userLoggedIn">
+                <span class="material-symbols-outlined" style="color: lightgray;">person_add</span>
+                <span style="margin-left: 8px;">Registered Participants</span>
+                <span style="margin-left: auto;">{{selectedEvent?.numberOfRegisteredParticipants}} / {{selectedEvent?.numberOfParticipants}} </span>
+            </button>
+            <button class="groupElement" *ngIf="adminLoggedIn" (click)="showParticipants()">
+              <span class="material-symbols-outlined" style="color: lightgray;">person_add</span>
+              <span style="margin-left: 8px;">Registered Participants</span>
+              <span style="margin-left: auto;">{{selectedEvent?.numberOfRegisteredParticipants}} / {{selectedEvent?.numberOfParticipants}} </span>
+            </button>
+            <div *ngIf="!pariticipantsHIdden" style="padding-left: 16px;">
+              <div *ngFor="let user of selectedEvent?.usersOnEvent">
+                <span [ngClass]="getClass(user)"></span>
+                <span>
+                  {{user.firstName}} {{user.lastName}}
+                </span>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="createEvent">
+        <button class="btnBack" (click)="goBack()">
+          <span class="material-symbols-outlined" style="color: lightgray;">arrow_back</span>
+          <span class="spanGoBack">
+            Go Back
+          </span>
+        </button>
+        <app-create-event [updateEvent]="update" [eventToUpdate]="update ? selectedEvent : null" [selectedDate]="selectedDateForForm"></app-create-event>
+    </div>
+
+</div>

@@ -1,0 +1,105 @@
+<div class="sendEmailsModal">
+  <div style="font-size: 20px; line-height: 24px; font-weight: 600;">
+    Send emails
+  </div>
+  <div style="margin-top: 8px;">
+    Please select all the users to send who atended the event which will recive and cerificate for participating in the event
+  </div>
+  <div style="display: flex; align-items: center; margin-top: 12px;">
+    <div style="width: 70%;">
+      <span style="font-size: 14px; font-weight: 500;">
+        Event name:
+      </span>
+      <div 
+        style="
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap; max-width: 40%;
+        width: 40%;
+        "
+      >
+        {{data.selectedEvent.name}}
+      </div>
+    </div>
+    <div style="margin-left: auto;">
+      <span style="font-size: 14px; font-weight: 500;">
+        Event date:
+      </span>
+      <div>
+        {{eventDate}}
+      </div>
+    </div>
+  </div>
+  <div *ngIf="usersWithSentEmails.length > 0">
+    <div style="margin-top: 24px;">
+      Email allready sent to 
+    </div>
+    <div style="border: 1px solid lavender; border-radius: 4px; padding: 8px;">
+      <div style="display: flex; align-items: center; border-bottom: 1px solid lavender; padding-bottom: 4px;">
+        <div style="width: 33%; margin-left: 20px;">
+          First Name
+        </div>
+        <div style="width: 33%;">
+          Last Name
+        </div>
+        <div style="width: 33%;">
+          Email
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <div *ngFor="let user of usersWithSentEmails!">  
+          <div style="display: flex; align-items: center; cursor: pointer;" (click)="addUser(user)">
+            <div style="width: 33%; margin-left: 20px;">
+              {{user.firstName}}
+            </div>
+            <div style="width: 33%;">
+              {{user.lastName}}
+            </div>
+            <div style="width: 33%;">
+              {{user.email}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    Paritcipants not sent emails are
+  </div>
+  <div style="border: 1px solid lavender; border-radius: 4px; padding: 8px;">
+    <div style="display: flex; align-items: center; border-bottom: 1px solid lavender; padding-bottom: 4px;">
+      <div style="width: 33%; margin-left: 20px;">
+        First Name
+      </div>
+      <div style="width: 33%;">
+        Last Name
+      </div>
+      <div style="width: 33%;">
+        Email
+      </div>
+    </div>
+    <div style="margin-top: 12px;">
+      <div *ngFor="let user of usersOnEvents!">  
+        <div style="display: flex; align-items: center; cursor: pointer;" (click)="addUser(user)">
+          <input type="checkbox" [ngModel]="selectedUserIds.includes(user.userId)">
+          <div style="width: 33%;">
+            {{user.firstName}}
+          </div>
+          <div style="width: 33%;">
+            {{user.lastName}}
+          </div>
+          <div style="width: 33%;">
+            {{user.email}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; margin-top: 20px;">
+    <div style="display: flex; margin-left: auto;">
+      <button style="height: 40px; background-color: white; color: black; border: unset;" (click)="closeDialog()">Cancel</button>
+      <button (click)="sendEmails()"   class="btn-add-trainer"><span>Send emails</span></button>
+    </div>
+  </div>
+</div>
+

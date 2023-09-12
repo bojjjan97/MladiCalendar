@@ -1,0 +1,11 @@
+<div *ngIf="service.loading | async" style="position: absolute; top: 0; right: 0; width: 100vw; height: 100vh; z-index: 100; background-color: white;">
+  <div style="position: absolute; top: 50%; right: 50%;">
+    <mat-progress-spinner
+      class="example-margin"
+      [color]="'primary'"
+      [mode]="'indeterminate'"
+      [value]="50">
+    </mat-progress-spinner>
+  </div>
+</div>
+
